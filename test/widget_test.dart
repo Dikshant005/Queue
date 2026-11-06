@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flowguard/constant/text_constants.dart';
 import 'package:flowguard/presentation/auth_screens/auth_screen.dart';
+import 'package:flowguard/presentation/business_detail_screen/business_detail_screen.dart';
 import 'package:flowguard/presentation/explore_screen/explore_screen.dart';
 import 'package:flowguard/presentation/home_screen/home_screen.dart';
 import 'package:flowguard/presentation/onboarding_screens/onboarding_screen.dart';
@@ -126,7 +127,7 @@ void main() {
 
     // 5. Nearby Businesses
     expect(find.text(TextConstants.nearbyBusinesses), findsOneWidget);
-    expect(find.text(TextConstants.sampleBusinessName), findsOneWidget);
+    expect(find.text(TextConstants.sampleBusinessName), findsWidgets);
     expect(find.text(TextConstants.openStatus), findsOneWidget);
 
     // 6. Active Token Card
@@ -143,7 +144,8 @@ void main() {
     expect(find.text(TextConstants.navProfile), findsOneWidget);
   });
 
-  testWidgets('ExploreScreen renders without back button and allows category selection',
+  testWidgets(
+      'ExploreScreen renders single item and navigates to BusinessDetailScreen',
       (WidgetTester tester) async {
     await tester.pumpWidget(
       const ProviderScope(
@@ -165,10 +167,50 @@ void main() {
     // Verify category chips exist
     expect(find.text(TextConstants.categoryAll), findsOneWidget);
     expect(find.text(TextConstants.categoryClinics), findsOneWidget);
-    expect(find.text(TextConstants.categorySalons), findsOneWidget);
 
-    // Tap "Clinics" chip
-    await tester.tap(find.text(TextConstants.categoryClinics));
+    // Verify single item is present
+    expect(find.text(TextConstants.sampleBusinessName), findsOneWidget);
+
+    // Tap on the item to navigate to BusinessDetailScreen
+    await tester.tap(find.text(TextConstants.sampleBusinessName));
     await tester.pumpAndSettle();
+
+    // Verify BusinessDetailScreen loaded
+    expect(find.text(TextConstants.tabServices), findsOneWidget);
+    expect(find.text(TextConstants.tabAbout), findsOneWidget);
+    expect(find.text(TextConstants.tabReviews), findsOneWidget);
+    expect(find.text(TextConstants.joinQueueButton), findsOneWidget);
+    expect(find.text(TextConstants.bookAppointmentButton), findsOneWidget);
+  });
+
+  testWidgets('BusinessDetailScreen renders all sections and tabs',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: BusinessDetailScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // Title and status
+    expect(find.text(TextConstants.sampleBusinessName), findsOneWidget);
+    expect(find.text(TextConstants.openStatus), findsOneWidget);
+
+    // Services
+    expect(find.text(TextConstants.serviceGeneralConsultation), findsOneWidget);
+    expect(find.text(TextConstants.serviceDentalCheckup), findsOneWidget);
+    expect(find.text(TextConstants.serviceSkinConsultation), findsOneWidget);
+    expect(find.text(TextConstants.viewAllServices), findsOneWidget);
+
+    // Bottom action buttons
+    expect(find.text(TextConstants.joinQueueButton), findsOneWidget);
+    expect(find.text(TextConstants.bookAppointmentButton), findsOneWidget);
+
+    // Tap "Join Queue"
+    await tester.tap(find.text(TextConstants.joinQueueButton));
+    await tester.pump();
+    expect(find.text('Joined queue! Generating live token...'), findsOneWidget);
   });
 }

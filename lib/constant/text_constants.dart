@@ -65,7 +65,7 @@ class TextConstants {
   static const String categoryDining = 'Dining';
   static const String categoryMore = 'More';
 
-  // Nearby Businesses
+  // Nearby Businesses & Explore
   static const String nearbyBusinesses = 'Nearby Businesses';
   static const String seeAllWithArrow = 'See all →';
   static const String sampleBusinessName = 'Northside Family Clinic';
@@ -73,6 +73,22 @@ class TextConstants {
   static const String sampleBusinessLocation = '1.2 km • Saharanpur';
   static const String sampleBusinessWaitTime = 'Est. wait: 15-20 min';
   static const String openStatus = 'Open';
+
+  // Business Detail Screen
+  static const String sampleBusinessDetailedLocation =
+      '1.2 km • Sector 14, Saharanpur';
+  static const String tabServices = 'Services';
+  static const String tabAbout = 'About';
+  static const String tabReviews = 'Reviews';
+  static const String serviceGeneralConsultation = 'General Consultation';
+  static const String serviceDentalCheckup = 'Dental Checkup';
+  static const String serviceSkinConsultation = 'Skin Consultation';
+  static const String priceGeneralConsultation = '₹300 • 15 min';
+  static const String priceDentalCheckup = '₹500 • 30 min';
+  static const String priceSkinConsultation = '₹600 • 30 min';
+  static const String viewAllServices = 'View all services →';
+  static const String joinQueueButton = 'Join Queue';
+  static const String bookAppointmentButton = 'Book Appointment';
 
   // Active Token Card
   static const String yourActiveToken = 'Your Active Token';

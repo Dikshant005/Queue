@@ -4,6 +4,7 @@ import '../../../constant/asset_constants.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/dimen_constants.dart';
 import '../../../constant/text_constants.dart';
+import '../../business_detail_screen/business_detail_screen.dart';
 import '../providers/home_nav_provider.dart';
 
 class NearbyBusinessCard extends ConsumerWidget {
@@ -55,7 +56,25 @@ class NearbyBusinessCard extends ConsumerWidget {
         // TODO: Fetch nearby businesses list from backend based on GPS coordinates
         InkWell(
           onTap: () {
-            // TODO: Navigate to Business Details & Token Booking screen
+            // Navigate to Business Details screen
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const BusinessDetailScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(1.0, 0.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOutCubic;
+                  final tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                },
+              ),
+            );
           },
           borderRadius: BorderRadius.circular(DimenConstants.radiusCard),
           child: Container(
