@@ -10,6 +10,14 @@ class TextConstants {
   static const String getStartedWithArrow = 'Get Started →';
   static const String getStarted = 'Get Started';
 
+  // Onboarding (2 Steps Flow)
+  static const String onboardingStep1Title = 'Skip the Queue,\nSave Your Time';
+  static const String onboardingStep1Subtitle =
+      'Join queues, book appointments\nand get real-time updates.';
+  static const String onboardingStep2Title = 'Get Real-Time\nUpdates';
+  static const String onboardingStep2Subtitle =
+      'Know your position, get notified\nand never wait cluelessly.';
+
   // Screen 2: Onboarding - Join Queues Digitally
   static const String joinQueuesTitle = 'Join Queues Digitally';
   static const String joinQueuesSubtitle =

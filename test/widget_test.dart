@@ -36,7 +36,7 @@ void main() {
   });
 
   testWidgets(
-      'OnboardingScreen displays 3-step flow and navigates to AuthScreen',
+      'OnboardingScreen displays 2-step flow and navigates to AuthScreen',
       (WidgetTester tester) async {
     await tester.pumpWidget(
       const ProviderScope(
@@ -47,27 +47,22 @@ void main() {
     );
     await tester.pump();
 
-    // Screen 1: Welcome with Get Started ->
-    expect(find.text(TextConstants.getStartedWithArrow), findsOneWidget);
-
-    // Tap "Get Started ->" to advance to Screen 2
-    await tester.tap(find.text(TextConstants.getStartedWithArrow));
-    await tester.pumpAndSettle();
-
-    // Screen 2: Join Queues Digitally
-    expect(find.text(TextConstants.joinQueuesTitle), findsOneWidget);
+    // Step 1: Skip the Queue, Save Your Time
+    expect(find.text(TextConstants.onboardingStep1Title), findsOneWidget);
+    expect(find.text(TextConstants.onboardingStep1Subtitle), findsOneWidget);
     expect(find.text(TextConstants.nextWithArrow), findsOneWidget);
+    expect(find.text(TextConstants.skip), findsOneWidget);
 
-    // Tap "Next ->" to advance to Screen 3
+    // Tap "Next →" to advance to Step 2
     await tester.tap(find.text(TextConstants.nextWithArrow));
     await tester.pumpAndSettle();
 
-    // Screen 3: Get Notified Instantly
-    expect(find.text(TextConstants.getNotifiedTitle), findsOneWidget);
-    expect(find.text(TextConstants.getStarted), findsOneWidget);
+    // Step 2: Get Real-Time Updates
+    expect(find.text(TextConstants.onboardingStep2Title), findsOneWidget);
+    expect(find.text(TextConstants.onboardingStep2Subtitle), findsOneWidget);
 
-    // Tap "Get Started" to complete onboarding and enter AuthScreen
-    await tester.tap(find.text(TextConstants.getStarted));
+    // Tap "Next →" to complete onboarding and enter AuthScreen
+    await tester.tap(find.text(TextConstants.nextWithArrow));
     await tester.pumpAndSettle();
 
     // Verify AuthScreen is loaded

@@ -6,7 +6,6 @@ import '../../constant/dimen_constants.dart';
 import '../../constant/text_constants.dart';
 import '../onboarding_screens/onboarding_screen.dart';
 import 'providers/splash_provider.dart';
-import 'widgets/splash_loading_dots.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
@@ -36,27 +35,27 @@ class SplashScreen extends ConsumerWidget {
       backgroundColor: ColorConstants.scaffoldBackground,
       body: Stack(
         children: [
-          // Top-left decorative concentric circular waves
+          // Top-right layered gradient blue curved waves
           Positioned(
             top: 0,
-            left: 0,
-            child: CustomPaint(
-              size: Size(screenSize.width * 0.7, screenSize.height * 0.3),
-              painter: _SplashTopConcentricWavesPainter(),
-            ),
-          ),
-
-          // Bottom-right fluid layered curved waves
-          Positioned(
-            bottom: 0,
             right: 0,
             child: CustomPaint(
-              size: Size(screenSize.width * 0.9, screenSize.height * 0.35),
-              painter: _SplashBottomFluidWavesPainter(),
+              size: Size(screenSize.width * 0.75, screenSize.height * 0.32),
+              painter: _SplashTopRightWavesPainter(),
             ),
           ),
 
-          // Center Brand, Tagline & Animated Loading Dots
+          // Bottom-left layered deep navy & blue curved waves
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: CustomPaint(
+              size: Size(screenSize.width * 0.85, screenSize.height * 0.35),
+              painter: _SplashBottomLeftWavesPainter(),
+            ),
+          ),
+
+          // Center Brand, Tagline
           SafeArea(
             child: Center(
               child: Column(
@@ -67,7 +66,7 @@ class SplashScreen extends ConsumerWidget {
                   // 3D Ribbon Logo
                   Image.asset(
                     AssetConstants.logo,
-                    height: DimenConstants.splashLogoSize,
+                    height: DimenConstants.splashLogoSize + 12,
                     fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) {
                       return const Icon(
@@ -78,38 +77,33 @@ class SplashScreen extends ConsumerWidget {
                     },
                   ),
 
-                  const SizedBox(height: DimenConstants.spacingLarge),
+                  const SizedBox(height: DimenConstants.spacingLarge + 4),
 
                   // Brand Name
                   const Text(
                     TextConstants.appName,
                     style: TextStyle(
-                      fontSize: DimenConstants.fontSizeHeadline + 2,
+                      fontSize: 28,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 2.2,
                       color: ColorConstants.textHeadline,
                     ),
                   ),
 
-                  const SizedBox(height: DimenConstants.spacingSmall),
+                  const SizedBox(height: 10),
 
                   // Tagline
                   const Text(
                     TextConstants.appTagline,
                     style: TextStyle(
-                      fontSize: DimenConstants.fontSizeSubtitle,
+                      fontSize: 15,
                       fontWeight: FontWeight.w400,
                       color: ColorConstants.textBody,
                       letterSpacing: 0.3,
                     ),
                   ),
 
-                  const SizedBox(height: DimenConstants.spacingHuge),
-
-                  // 3 Animated Loading Dots
-                  const SplashLoadingDots(),
-
-                  const Spacer(flex: 4),
+                  const Spacer(flex: 3),
                 ],
               ),
             ),
@@ -120,77 +114,105 @@ class SplashScreen extends ConsumerWidget {
   }
 }
 
-/// Custom painter for top-left concentric circular wave lines
-class _SplashTopConcentricWavesPainter extends CustomPainter {
+/// Custom painter for top-right fluid layered curved waves
+class _SplashTopRightWavesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final strokePaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.6
-      ..color = ColorConstants.curvedWaveLine.withValues(alpha: 0.65);
+    final w = size.width;
+    final h = size.height;
 
-    final center = Offset(-size.width * 0.15, -size.height * 0.2);
+    // 1. Soft light-blue outer wave
+    final lightPaint = Paint()
+      ..shader = LinearGradient(
+        colors: [
+          const Color(0xFF93C5FD).withValues(alpha: 0.35),
+          const Color(0xFF60A5FA).withValues(alpha: 0.5),
+        ],
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+      ).createShader(Rect.fromLTWH(0, 0, w, h));
 
-    canvas.drawCircle(center, size.width * 0.45, strokePaint);
-    canvas.drawCircle(center, size.width * 0.70, strokePaint);
-    canvas.drawCircle(center, size.width * 0.95, strokePaint);
+    final path1 = Path();
+    path1.moveTo(w, 0);
+    path1.lineTo(0, 0);
+    path1.quadraticBezierTo(w * 0.15, h * 0.65, w, h * 0.95);
+    path1.close();
+    canvas.drawPath(path1, lightPaint);
+
+    // 2. Vivid royal blue inner wave
+    final bluePaint = Paint()
+      ..shader = const LinearGradient(
+        colors: [
+          Color(0xFF3B82F6),
+          Color(0xFF1D61F2),
+        ],
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+      ).createShader(Rect.fromLTWH(w * 0.2, 0, w * 0.8, h * 0.8));
+
+    final path2 = Path();
+    path2.moveTo(w, 0);
+    path2.lineTo(w * 0.25, 0);
+    path2.quadraticBezierTo(w * 0.45, h * 0.55, w, h * 0.72);
+    path2.close();
+    canvas.drawPath(path2, bluePaint);
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-/// Custom painter for bottom-right smooth layered fluid blue waves
-class _SplashBottomFluidWavesPainter extends CustomPainter {
+/// Custom painter for bottom-left smooth layered fluid navy & blue waves
+class _SplashBottomLeftWavesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final w = size.width;
     final h = size.height;
 
-    // 1. Light blue background wave
+    // 1. Soft light blue outer wave
     final lightWavePaint = Paint()
       ..shader = LinearGradient(
         colors: [
-          ColorConstants.splashWaveLight.withValues(alpha: 0.45),
-          ColorConstants.splashWaveMedium.withValues(alpha: 0.55),
+          const Color(0xFF93C5FD).withValues(alpha: 0.4),
+          const Color(0xFF60A5FA).withValues(alpha: 0.3),
         ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
       ).createShader(Rect.fromLTWH(0, 0, w, h));
 
     final path1 = Path();
-    path1.moveTo(0, h);
-    path1.quadraticBezierTo(w * 0.2, h * 0.5, w, h * 0.15);
-    path1.lineTo(w, h);
+    path1.moveTo(0, h * 0.3);
+    path1.quadraticBezierTo(w * 0.65, h * 0.45, w * 0.85, h);
+    path1.lineTo(0, h);
     path1.close();
     canvas.drawPath(path1, lightWavePaint);
 
-    // 2. Vibrant royal blue middle wave
+    // 2. Royal blue middle wave
     final midWavePaint = Paint()
-      ..shader = LinearGradient(
+      ..shader = const LinearGradient(
         colors: [
-          ColorConstants.splashWaveMedium,
-          ColorConstants.primaryBlue,
+          Color(0xFF2563EB),
+          Color(0xFF1D61F2),
         ],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomRight,
-      ).createShader(Rect.fromLTWH(w * 0.15, h * 0.25, w * 0.85, h * 0.75));
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+      ).createShader(Rect.fromLTWH(0, h * 0.45, w * 0.7, h * 0.55));
 
     final path2 = Path();
-    path2.moveTo(w * 0.15, h);
-    path2.quadraticBezierTo(w * 0.35, h * 0.65, w, h * 0.3);
-    path2.lineTo(w, h);
+    path2.moveTo(0, h * 0.52);
+    path2.quadraticBezierTo(w * 0.45, h * 0.65, w * 0.6, h);
+    path2.lineTo(0, h);
     path2.close();
     canvas.drawPath(path2, midWavePaint);
 
     // 3. Deep dark navy foreground wave
     final darkWavePaint = Paint()
-      ..color = ColorConstants.splashWaveDark;
+      ..color = const Color(0xFF0B132B);
 
     final path3 = Path();
-    path3.moveTo(w * 0.35, h);
-    path3.quadraticBezierTo(w * 0.55, h * 0.8, w, h * 0.45);
-    path3.lineTo(w, h);
+    path3.moveTo(0, h * 0.72);
+    path3.quadraticBezierTo(w * 0.3, h * 0.82, w * 0.42, h);
+    path3.lineTo(0, h);
     path3.close();
     canvas.drawPath(path3, darkWavePaint);
   }
