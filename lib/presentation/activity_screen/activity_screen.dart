@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constant/color_constants.dart';
-import '../../constant/text_constants.dart';
 import 'providers/activity_provider.dart';
 import 'widgets/activity_header.dart';
 import 'widgets/activity_tabs_bar.dart';
 import 'widgets/appointment_card.dart';
+import 'widgets/no_appointments_empty_view.dart';
 
 class ActivityScreen extends ConsumerWidget {
   const ActivityScreen({super.key});
@@ -34,7 +34,7 @@ class ActivityScreen extends ConsumerWidget {
             // Appointments List View
             Expanded(
               child: appointments.isEmpty
-                  ? _buildEmptyState()
+                  ? const NoAppointmentsEmptyView()
                   : ListView.builder(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       itemCount: appointments.length,
@@ -47,30 +47,6 @@ class ActivityScreen extends ConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildEmptyState() {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: const [
-          Icon(
-            Icons.event_busy_rounded,
-            size: 54,
-            color: ColorConstants.textLight,
-          ),
-          SizedBox(height: 12),
-          Text(
-            TextConstants.noPastAppointments,
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: ColorConstants.textBody,
-            ),
-          ),
-        ],
       ),
     );
   }

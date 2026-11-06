@@ -2,6 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flowguard/constant/text_constants.dart';
 import 'package:flowguard/presentation/activity_screen/activity_screen.dart';
+import 'package:flowguard/presentation/notifications_screen/notifications_screen.dart';
+import 'package:flowguard/presentation/profile_screen/profile_screen.dart';
+import 'package:flowguard/presentation/queue_success_screen/queue_success_screen.dart';
 import 'package:flowguard/presentation/auth_screens/auth_screen.dart';
 import 'package:flowguard/presentation/business_detail_screen/business_detail_screen.dart';
 import 'package:flowguard/presentation/explore_screen/explore_screen.dart';
@@ -210,10 +213,10 @@ void main() {
     expect(find.text(TextConstants.joinQueueButton), findsOneWidget);
     expect(find.text(TextConstants.bookAppointmentButton), findsOneWidget);
 
-    // Tap "Join Queue" to navigate to QueueTrackerScreen
+    // Tap "Join Queue" to navigate to QueueSuccessScreen
     await tester.tap(find.text(TextConstants.joinQueueButton));
     await tester.pumpAndSettle();
-    expect(find.text(TextConstants.waitingInLine), findsOneWidget);
+    expect(find.text(TextConstants.queueJoinedTitle), findsOneWidget);
   });
 
   testWidgets('QueueTrackerScreen renders gauge, wait info, stepper, and actions',
@@ -299,7 +302,91 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify empty state for past appointments
-    expect(find.text(TextConstants.noPastAppointments), findsOneWidget);
+    expect(find.text(TextConstants.noAppointmentsTitle), findsOneWidget);
+    expect(find.text(TextConstants.noAppointmentsSubtitle), findsOneWidget);
+    expect(find.text(TextConstants.exploreClinicsButton), findsOneWidget);
     expect(find.text(TextConstants.dentalCareTitle), findsNothing);
+  });
+
+  testWidgets('ProfileScreen renders user info and all menu options',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: ProfileScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // 1. Header & user info
+    expect(find.text(TextConstants.profileTitle), findsOneWidget);
+    expect(find.text(TextConstants.sampleUserName), findsOneWidget);
+    expect(find.text(TextConstants.sampleUserEmail), findsOneWidget);
+
+    // 2. Menu items
+    expect(find.text(TextConstants.menuMyBookings), findsOneWidget);
+    expect(find.text(TextConstants.menuMyQueueHistory), findsOneWidget);
+    expect(find.text(TextConstants.menuWalletPayments), findsOneWidget);
+    expect(find.text(TextConstants.menuAddresses), findsOneWidget);
+    expect(find.text(TextConstants.menuNotifications), findsOneWidget);
+    expect(find.text(TextConstants.menuHelpSupport), findsOneWidget);
+    expect(find.text(TextConstants.menuAboutFlowguard), findsOneWidget);
+  });
+
+  testWidgets('NotificationsScreen renders filter chips and notifications',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: NotificationsScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // 1. Title
+    expect(find.text(TextConstants.notificationsTitle), findsOneWidget);
+
+    // 2. Filter chips
+    expect(find.text(TextConstants.notifFilterAll), findsOneWidget);
+    expect(find.text(TextConstants.notifFilterUpdates), findsOneWidget);
+    expect(find.text(TextConstants.notifFilterBookings), findsOneWidget);
+    expect(find.text(TextConstants.notifFilterOffers), findsOneWidget);
+
+    // 3. Notifications
+    expect(find.text(TextConstants.notifTurnApproaching), findsOneWidget);
+    expect(find.text(TextConstants.notifAppointmentConfirmed), findsOneWidget);
+    expect(find.text(TextConstants.notifReferral), findsOneWidget);
+    expect(find.text(TextConstants.notifClinicUpdate), findsOneWidget);
+    expect(find.text(TextConstants.notifSpecialOffer), findsOneWidget);
+  });
+
+  testWidgets('QueueSuccessScreen renders checkmark, title, and buttons',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: QueueSuccessScreen(tokenNumber: 'A-024'),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // 1. Checkmark icon
+    expect(find.byIcon(Icons.check_rounded), findsOneWidget);
+
+    // 2. Titles
+    expect(find.text(TextConstants.queueJoinedTitle), findsOneWidget);
+    expect(find.textContaining('Your token A-024 has been'), findsOneWidget);
+
+    // 3. Action Buttons
+    expect(find.text(TextConstants.trackQueueButton), findsOneWidget);
+    expect(find.text(TextConstants.doneButton), findsOneWidget);
+
+    // 4. Tap "Track Queue" replaces route to QueueTrackerScreen
+    await tester.tap(find.text(TextConstants.trackQueueButton));
+    await tester.pumpAndSettle();
+    expect(find.text(TextConstants.waitingInLine), findsOneWidget);
   });
 }

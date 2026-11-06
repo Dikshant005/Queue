@@ -4,6 +4,7 @@ import '../../constant/color_constants.dart';
 import '../../constant/dimen_constants.dart';
 import '../activity_screen/activity_screen.dart';
 import '../explore_screen/explore_screen.dart';
+import '../profile_screen/profile_screen.dart';
 import 'providers/home_nav_provider.dart';
 import 'widgets/active_token_card.dart';
 import 'widgets/greeting_section.dart';
@@ -36,11 +37,8 @@ class HomeScreen extends ConsumerWidget {
           // Tab 2: My Activity (My Appointments Screen)
           ActivityScreen(),
 
-          // Tab 3: Profile Placeholder
-          _PlaceholderView(
-            title: 'Profile',
-            // TODO: Connect User Profile / Account Settings screen
-          ),
+          // Tab 3: Profile Screen
+          ProfileScreen(),
         ],
       ),
     );
@@ -96,28 +94,6 @@ class _HomeContentView extends StatelessWidget {
 
             SizedBox(height: DimenConstants.spacingLarge),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _PlaceholderView extends StatelessWidget {
-  final String title;
-
-  const _PlaceholderView({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: DimenConstants.fontSizeHeadline,
-            fontWeight: FontWeight.w700,
-            color: ColorConstants.textHeadline,
-          ),
         ),
       ),
     );

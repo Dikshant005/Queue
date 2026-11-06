@@ -3,6 +3,7 @@ import '../../../constant/asset_constants.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/dimen_constants.dart';
 import '../../../constant/text_constants.dart';
+import '../../notifications_screen/notifications_screen.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -63,7 +64,11 @@ class HomeHeader extends StatelessWidget {
         // Right: Notification Bell Action
         IconButton(
           onPressed: () {
-            // TODO: Navigate to Notification Center screen
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const NotificationsScreen(),
+              ),
+            );
           },
           icon: const Icon(
             Icons.notifications_none_rounded,

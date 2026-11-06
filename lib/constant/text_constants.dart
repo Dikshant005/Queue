@@ -123,6 +123,49 @@ class TextConstants {
   static const String viewDetailsWithArrow = 'View Details →';
   static const String noPastAppointments = 'No past appointments yet';
 
+  // Profile Screen
+  static const String profileTitle = 'Profile';
+  static const String sampleUserName = 'Dikshant';
+  static const String sampleUserEmail = 'dikshant@example.com';
+  static const String menuMyBookings = 'My Bookings';
+  static const String menuMyQueueHistory = 'My Queue History';
+  static const String menuWalletPayments = 'Wallet & Payments';
+  static const String menuAddresses = 'Addresses';
+  static const String menuNotifications = 'Notifications';
+  static const String menuHelpSupport = 'Help & Support';
+  static const String menuAboutFlowguard = 'About FLOWGUARD';
+
+  // Notifications Screen
+  static const String notificationsTitle = 'Notifications';
+  static const String notifFilterAll = 'All';
+  static const String notifFilterUpdates = 'Updates';
+  static const String notifFilterBookings = 'Bookings';
+  static const String notifFilterOffers = 'Offers';
+  static const String notifTurnApproaching = 'Your turn is approaching!';
+  static const String notifTurnApproachingSub = 'A-024 • 2 min ago';
+  static const String notifAppointmentConfirmed = 'Appointment Confirmed';
+  static const String notifAppointmentConfirmedSub = 'Dental Care • 11:30 AM';
+  static const String notifReferral = 'Get ₹100 on referral';
+  static const String notifReferralSub = 'Refer a friend and earn rewards!';
+  static const String notifClinicUpdate = 'Clinic Update';
+  static const String notifClinicUpdateSub = 'We are now open on Sundays!';
+  static const String notifSpecialOffer = 'Special Offer';
+  static const String notifSpecialOfferSub =
+      'Flat 20% off on all dental services!';
+
+  // Empty State: No Appointments Yet
+  static const String noAppointmentsTitle = 'No Appointments Yet';
+  static const String noAppointmentsSubtitle =
+      'Book an appointment to get started.';
+  static const String exploreClinicsButton = 'Explore Clinics';
+
+  // Queue Joined Successfully Screen / Dialog
+  static const String queueJoinedTitle = 'Queue Joined Successfully!';
+  static const String queueJoinedSubtitle =
+      'Your token A-024 has been confirmed.';
+  static const String trackQueueButton = 'Track Queue';
+  static const String doneButton = 'Done';
+
   // Bottom Navigation Bar
   static const String navHome = 'Home';
   static const String navExplore = 'Explore';

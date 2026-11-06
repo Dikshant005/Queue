@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/dimen_constants.dart';
 import '../../../constant/text_constants.dart';
-import '../../queue_tracker_screen/queue_tracker_screen.dart';
+import '../../queue_success_screen/queue_success_screen.dart';
 
 class DetailBottomActions extends StatelessWidget {
   const DetailBottomActions({super.key});
@@ -42,7 +42,7 @@ class DetailBottomActions extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => const QueueTrackerScreen(),
+                        builder: (_) => const QueueSuccessScreen(),
                       ),
                     );
                     // TODO: Call backend Queue API to generate live token and add user to queue
