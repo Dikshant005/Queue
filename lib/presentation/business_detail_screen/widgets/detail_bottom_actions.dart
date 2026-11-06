@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/dimen_constants.dart';
 import '../../../constant/text_constants.dart';
+import '../../queue_tracker_screen/queue_tracker_screen.dart';
 
 class DetailBottomActions extends StatelessWidget {
   const DetailBottomActions({super.key});
@@ -39,14 +40,12 @@ class DetailBottomActions extends StatelessWidget {
                 height: DimenConstants.buttonHeight - 4,
                 child: ElevatedButton(
                   onPressed: () {
-                    // TODO: Call backend Queue API to generate live token and add user to queue
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Joined queue! Generating live token...'),
-                        backgroundColor: ColorConstants.primaryDark,
-                        behavior: SnackBarBehavior.floating,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const QueueTrackerScreen(),
                       ),
                     );
+                    // TODO: Call backend Queue API to generate live token and add user to queue
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorConstants.darkButtonBackground,

@@ -90,6 +90,17 @@ class TextConstants {
   static const String joinQueueButton = 'Join Queue';
   static const String bookAppointmentButton = 'Book Appointment';
 
+  // Queue Tracker Screen
+  static const String yourToken = 'Your Token';
+  static const String waitingInLine = 'Waiting in Line';
+  static const String samplePeopleAhead = '3 People Ahead';
+  static const String stepJoined = 'Joined';
+  static const String stepInQueue = 'In Queue';
+  static const String stepNext = 'Next';
+  static const String businessLabel = 'Business';
+  static const String directionsButton = 'Directions';
+  static const String leaveQueueButton = 'Leave Queue';
+
   // Active Token Card
   static const String yourActiveToken = 'Your Active Token';
   static const String activeTokenNumber = 'A-024';

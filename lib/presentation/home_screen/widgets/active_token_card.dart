@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/dimen_constants.dart';
 import '../../../constant/text_constants.dart';
+import '../../queue_tracker_screen/queue_tracker_screen.dart';
 
 class ActiveTokenCard extends StatelessWidget {
   const ActiveTokenCard({super.key});
@@ -11,7 +12,12 @@ class ActiveTokenCard extends StatelessWidget {
     // TODO: Connect to WebSocket / polling service to stream live queue updates
     return InkWell(
       onTap: () {
-        // TODO: Navigate to Live Queue Tracker & Token Details screen
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => const QueueTrackerScreen(),
+          ),
+        );
+        // TODO: Pass active tokenId when connected to backend API
       },
       borderRadius: BorderRadius.circular(DimenConstants.radiusLarge),
       child: Container(

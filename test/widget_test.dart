@@ -6,6 +6,7 @@ import 'package:flowguard/presentation/business_detail_screen/business_detail_sc
 import 'package:flowguard/presentation/explore_screen/explore_screen.dart';
 import 'package:flowguard/presentation/home_screen/home_screen.dart';
 import 'package:flowguard/presentation/onboarding_screens/onboarding_screen.dart';
+import 'package:flowguard/presentation/queue_tracker_screen/queue_tracker_screen.dart';
 import 'package:flowguard/presentation/splash_screen/providers/splash_provider.dart';
 import 'package:flowguard/presentation/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -208,9 +209,55 @@ void main() {
     expect(find.text(TextConstants.joinQueueButton), findsOneWidget);
     expect(find.text(TextConstants.bookAppointmentButton), findsOneWidget);
 
-    // Tap "Join Queue"
+    // Tap "Join Queue" to navigate to QueueTrackerScreen
     await tester.tap(find.text(TextConstants.joinQueueButton));
+    await tester.pumpAndSettle();
+    expect(find.text(TextConstants.waitingInLine), findsOneWidget);
+  });
+
+  testWidgets('QueueTrackerScreen renders gauge, wait info, stepper, and actions',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: QueueTrackerScreen(),
+        ),
+      ),
+    );
     await tester.pump();
-    expect(find.text('Joined queue! Generating live token...'), findsOneWidget);
+
+    // 1. Header icons
+    expect(find.byIcon(Icons.chevron_left_rounded), findsOneWidget);
+    expect(find.byIcon(Icons.refresh_rounded), findsOneWidget);
+
+    // 2. Token Gauge
+    expect(find.text(TextConstants.yourToken), findsOneWidget);
+    expect(find.text(TextConstants.activeTokenNumber), findsOneWidget);
+    expect(find.text(TextConstants.waitingInLine), findsOneWidget);
+
+    // 3. Wait Info
+    expect(find.text('${TextConstants.approxPrefix}12 min'), findsOneWidget);
+    expect(find.text(TextConstants.estimatedWaitLabel), findsOneWidget);
+    expect(find.text('3 People Ahead'), findsOneWidget);
+
+    // 4. Stepper Timeline
+    expect(find.text(TextConstants.stepJoined), findsOneWidget);
+    expect(find.text(TextConstants.stepInQueue), findsOneWidget);
+    expect(find.text(TextConstants.stepNext), findsOneWidget);
+
+    // 5. Business Card
+    expect(find.text(TextConstants.businessLabel), findsOneWidget);
+    expect(find.text(TextConstants.sampleBusinessName), findsOneWidget);
+
+    // 6. Action buttons
+    expect(find.text(TextConstants.directionsButton), findsOneWidget);
+    expect(find.text(TextConstants.leaveQueueButton), findsOneWidget);
+
+    // 7. Tap "Leave Queue" shows confirmation dialog
+    await tester.ensureVisible(find.text(TextConstants.leaveQueueButton));
+    await tester.tap(find.text(TextConstants.leaveQueueButton));
+    await tester.pumpAndSettle();
+    expect(find.text('Leave Queue?'), findsOneWidget);
+    expect(find.text('Stay in Line'), findsOneWidget);
   });
 }
