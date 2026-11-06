@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constant/color_constants.dart';
 import '../../constant/dimen_constants.dart';
+import '../activity_screen/activity_screen.dart';
 import '../explore_screen/explore_screen.dart';
 import 'providers/home_nav_provider.dart';
 import 'widgets/active_token_card.dart';
@@ -32,11 +33,8 @@ class HomeScreen extends ConsumerWidget {
           // Tab 1: Explore Screen (Navigated via bottom nav)
           ExploreScreen(),
 
-          // Tab 2: My Activity Placeholder
-          _PlaceholderView(
-            title: 'My Activity',
-            // TODO: Connect My Activity / Queue History screen
-          ),
+          // Tab 2: My Activity (My Appointments Screen)
+          ActivityScreen(),
 
           // Tab 3: Profile Placeholder
           _PlaceholderView(

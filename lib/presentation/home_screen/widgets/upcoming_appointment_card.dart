@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/dimen_constants.dart';
 import '../../../constant/text_constants.dart';
+import '../providers/home_nav_provider.dart';
 
-class UpcomingAppointmentCard extends StatelessWidget {
+class UpcomingAppointmentCard extends ConsumerWidget {
   const UpcomingAppointmentCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // TODO: Fetch user's scheduled appointments from appointment booking service
     return InkWell(
       onTap: () {
-        // TODO: Navigate to Appointment Details & Reschedule screen
+        ref.read(homeNavProvider.notifier).selectTab(HomeNavTab.activity);
       },
       borderRadius: BorderRadius.circular(DimenConstants.radiusCard),
       child: Container(

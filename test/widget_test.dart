@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flowguard/constant/text_constants.dart';
+import 'package:flowguard/presentation/activity_screen/activity_screen.dart';
 import 'package:flowguard/presentation/auth_screens/auth_screen.dart';
 import 'package:flowguard/presentation/business_detail_screen/business_detail_screen.dart';
 import 'package:flowguard/presentation/explore_screen/explore_screen.dart';
@@ -259,5 +260,46 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Leave Queue?'), findsOneWidget);
     expect(find.text('Stay in Line'), findsOneWidget);
+  });
+
+  testWidgets(
+      'ActivityScreen renders appointments, tabs, and switches between Upcoming and Past',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: ActivityScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // 1. Header
+    expect(find.text(TextConstants.myAppointments), findsOneWidget);
+
+    // 2. Tabs
+    expect(find.text(TextConstants.tabUpcoming), findsOneWidget);
+    expect(find.text(TextConstants.tabPast), findsOneWidget);
+
+    // 3. Upcoming Appointment 1
+    expect(find.text(TextConstants.dentalCareTitle), findsOneWidget);
+    expect(find.text(TextConstants.sampleAppointmentDentalTime), findsOneWidget);
+    expect(find.text(TextConstants.sampleBusinessName), findsOneWidget);
+
+    // 4. Upcoming Appointment 2
+    expect(find.text(TextConstants.generalCheckupTitle), findsOneWidget);
+    expect(find.text(TextConstants.sampleAppointmentGeneralTime), findsOneWidget);
+    expect(find.text(TextConstants.sampleClinicLifeCare), findsOneWidget);
+
+    // 5. View Details Buttons
+    expect(find.text(TextConstants.viewDetailsWithArrow), findsNWidgets(2));
+
+    // 6. Switch to "Past" tab
+    await tester.tap(find.text(TextConstants.tabPast));
+    await tester.pumpAndSettle();
+
+    // Verify empty state for past appointments
+    expect(find.text(TextConstants.noPastAppointments), findsOneWidget);
+    expect(find.text(TextConstants.dentalCareTitle), findsNothing);
   });
 }

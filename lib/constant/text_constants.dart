@@ -108,10 +108,20 @@ class TextConstants {
   static const String activeTokenWaitTime = '12 min';
   static const String estimatedWaitLabel = 'Estimated Wait';
 
-  // Upcoming Appointment Card
+  // Upcoming Appointment Card & Activity Screen
   static const String upcomingAppointment = 'Upcoming Appointment';
   static const String sampleAppointmentDetail =
       'Tomorrow • 11:30 AM | Dental Care';
+  static const String myAppointments = 'My Appointments';
+  static const String tabUpcoming = 'Upcoming';
+  static const String tabPast = 'Past';
+  static const String dentalCareTitle = 'Dental Care';
+  static const String sampleAppointmentDentalTime = 'Tomorrow, 11:30 AM';
+  static const String generalCheckupTitle = 'General Checkup';
+  static const String sampleAppointmentGeneralTime = 'Fri, 24 Oct • 10:00 AM';
+  static const String sampleClinicLifeCare = 'LifeCare Diagnostics';
+  static const String viewDetailsWithArrow = 'View Details →';
+  static const String noPastAppointments = 'No past appointments yet';
 
   // Bottom Navigation Bar
   static const String navHome = 'Home';
