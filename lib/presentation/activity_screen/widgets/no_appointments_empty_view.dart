@@ -78,144 +78,60 @@ class NoAppointmentsEmptyView extends ConsumerWidget {
 
   Widget _buildIllustration() {
     return SizedBox(
-      width: 170,
+      width: 160,
       height: 150,
       child: Stack(
         alignment: Alignment.center,
         children: [
           // Background soft blue glow bubble
           Container(
-            width: 150,
-            height: 130,
+            width: 140,
+            height: 120,
             decoration: BoxDecoration(
               color: const Color(0xFFEFF6FF),
               borderRadius: BorderRadius.circular(60),
             ),
           ),
 
-          // Clock (left background)
-          Positioned(
-            left: 14,
-            top: 20,
-            child: Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: ColorConstants.primaryBlue,
-                  width: 3.5,
-                ),
-                color: Colors.white,
+          // Magnifying Glass Illustration (Matching Mockup Row 4, Col 2)
+          Container(
+            width: 78,
+            height: 78,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: ColorConstants.primaryBlue,
+                width: 3.5,
               ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  // Clock hour hand
-                  Container(
-                    width: 3,
-                    height: 22,
-                    margin: const EdgeInsets.only(bottom: 18),
-                    color: ColorConstants.primaryBlue,
-                  ),
-                  // Clock minute hand
-                  Container(
-                    width: 18,
-                    height: 3,
-                    margin: const EdgeInsets.only(left: 16),
-                    color: ColorConstants.primaryBlue,
-                  ),
-                  // Center pivot dot
-                  Container(
-                    width: 7,
-                    height: 7,
-                    decoration: const BoxDecoration(
-                      color: ColorConstants.primaryBlue,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ],
+              color: Colors.white,
+            ),
+            child: Center(
+              child: Container(
+                width: 3,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: ColorConstants.primaryBlue,
+                  borderRadius: BorderRadius.circular(1.5),
+                ),
               ),
             ),
           ),
-
-          // Calendar Card (right foreground overlap)
           Positioned(
-            right: 18,
-            bottom: 22,
-            child: Container(
-              width: 68,
-              height: 64,
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: ColorConstants.primaryBlue,
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x221D61F2),
-                    blurRadius: 10,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // Top mini binder pins
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 4,
-                        height: 4,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      Container(
-                        width: 4,
-                        height: 4,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ],
-                  ),
-                  // Calendar date grid dots
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildWhiteDot(),
-                      _buildWhiteDot(),
-                      _buildWhiteDot(),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildWhiteDot(),
-                      _buildWhiteDot(),
-                      _buildWhiteDot(),
-                    ],
-                  ),
-                ],
+            right: 36,
+            bottom: 24,
+            child: Transform.rotate(
+              angle: -0.8,
+              child: Container(
+                width: 32,
+                height: 4.5,
+                decoration: BoxDecoration(
+                  color: ColorConstants.primaryBlue,
+                  borderRadius: BorderRadius.circular(2.5),
+                ),
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildWhiteDot() {
-    return Container(
-      width: 5,
-      height: 5,
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.9),
-        borderRadius: BorderRadius.circular(1.5),
       ),
     );
   }

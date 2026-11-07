@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constant/color_constants.dart';
 import '../../constant/text_constants.dart';
+import '../favorites_screen/favorites_screen.dart';
 import '../home_screen/providers/home_nav_provider.dart';
 import '../notifications_screen/notifications_screen.dart';
 import 'widgets/profile_header.dart';
@@ -45,6 +46,17 @@ class ProfileScreen extends ConsumerWidget {
                 onTap: () {
                   // Switch to My Activity / Appointments tab
                   ref.read(homeNavProvider.notifier).selectTab(HomeNavTab.activity);
+                },
+              ),
+              ProfileMenuItem(
+                icon: Icons.favorite_border_rounded,
+                title: TextConstants.favoritesTitle,
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const FavoritesScreen(),
+                    ),
+                  );
                 },
               ),
               ProfileMenuItem(

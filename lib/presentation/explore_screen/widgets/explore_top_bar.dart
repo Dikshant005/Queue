@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/dimen_constants.dart';
 import '../../../constant/text_constants.dart';
+import 'explore_filter_sheet.dart';
 
 class ExploreTopBar extends StatelessWidget {
   const ExploreTopBar({super.key});
@@ -65,9 +66,7 @@ class ExploreTopBar extends StatelessWidget {
 
         // Filter Action Button (Sliders / Tune Icon)
         InkWell(
-          onTap: () {
-            // TODO: Open Filter & Sort Bottom Sheet (Distance, Rating, Wait Time, Open Status)
-          },
+          onTap: () => ExploreFilterSheet.show(context),
           borderRadius: BorderRadius.circular(DimenConstants.radiusMedium),
           child: Container(
             width: DimenConstants.inputHeight - 4,

@@ -7,15 +7,24 @@ import 'package:flowguard/presentation/profile_screen/profile_screen.dart';
 import 'package:flowguard/presentation/queue_success_screen/queue_success_screen.dart';
 import 'package:flowguard/presentation/auth_screens/auth_screen.dart';
 import 'package:flowguard/presentation/auth_screens/otp_verification_screen/otp_verification_screen.dart';
+import 'package:flowguard/presentation/select_services_screen/select_services_screen.dart';
 import 'package:flowguard/presentation/location_permission_screen/location_permission_screen.dart';
 import 'package:flowguard/presentation/select_location_screen/select_location_screen.dart';
 import 'package:flowguard/presentation/business_detail_screen/business_detail_screen.dart';
+import 'package:flowguard/presentation/cancellation_successful_screen/cancellation_successful_screen.dart';
+import 'package:flowguard/presentation/edit_profile_screen/edit_profile_screen.dart';
 import 'package:flowguard/presentation/explore_screen/explore_screen.dart';
+import 'package:flowguard/presentation/favorites_screen/favorites_screen.dart';
 import 'package:flowguard/presentation/home_screen/home_screen.dart';
+import 'package:flowguard/presentation/no_internet_screen/no_internet_screen.dart';
 import 'package:flowguard/presentation/onboarding_screens/onboarding_screen.dart';
+import 'package:flowguard/presentation/queue_full_screen/queue_full_screen.dart';
 import 'package:flowguard/presentation/queue_tracker_screen/queue_tracker_screen.dart';
+import 'package:flowguard/presentation/select_branch_screen/select_branch_screen.dart';
+import 'package:flowguard/presentation/settings_screen/settings_screen.dart';
 import 'package:flowguard/presentation/splash_screen/providers/splash_provider.dart';
 import 'package:flowguard/presentation/splash_screen/splash_screen.dart';
+import 'package:flowguard/presentation/your_turn_screen/your_turn_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -259,8 +268,8 @@ void main() {
     await tester.ensureVisible(find.text(TextConstants.leaveQueueButton));
     await tester.tap(find.text(TextConstants.leaveQueueButton));
     await tester.pumpAndSettle();
-    expect(find.text('Leave Queue?'), findsOneWidget);
-    expect(find.text('Stay in Line'), findsOneWidget);
+    expect(find.text(TextConstants.cancelQueueTitle), findsOneWidget);
+    expect(find.text(TextConstants.keepQueueButton), findsOneWidget);
   });
 
   testWidgets(
@@ -481,5 +490,228 @@ void main() {
 
     // Verify "Delhi, DL" is now reflected in the Current Location card
     expect(find.text(TextConstants.sampleLocationDelhi), findsNWidgets(2));
+  });
+
+  testWidgets(
+      'SelectServices -> BookAppointment -> AppointmentBooked flow works end-to-end',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: SelectServicesScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // 1. Select Services Screen
+    expect(find.text(TextConstants.selectServicesTitle), findsOneWidget);
+    expect(find.text(TextConstants.selectServicesSubtitle), findsOneWidget);
+    expect(find.text(TextConstants.serviceGeneralConsultation), findsOneWidget);
+    expect(find.text(TextConstants.serviceDentalCheckup), findsOneWidget);
+
+    // Tap "Continue (2 Selected)"
+    await tester.tap(find.text('${TextConstants.continueButton} (2 Selected)'));
+    await tester.pumpAndSettle();
+
+    // 2. Book Appointment Screen
+    expect(find.text(TextConstants.bookAppointmentTitle), findsOneWidget);
+    expect(find.text(TextConstants.availableSlotsTitle), findsOneWidget);
+    expect(find.text('Wed'), findsOneWidget);
+    expect(find.text('10:00 AM'), findsOneWidget);
+
+    // Tap "Continue"
+    await tester.tap(find.text(TextConstants.continueButton));
+    await tester.pumpAndSettle();
+
+    // 3. Appointment Booked Screen
+    expect(find.text(TextConstants.appointmentBookedTitle), findsOneWidget);
+    expect(find.text(TextConstants.viewAppointmentButton), findsOneWidget);
+  });
+
+  testWidgets('ExploreScreen opens ExploreFilterSheet and displays options',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: Scaffold(body: ExploreScreen()),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // Tap Filter Icon (tune)
+    await tester.tap(find.byIcon(Icons.tune_rounded));
+    await tester.pumpAndSettle();
+
+    // Verify Filter Sheet opened
+    expect(find.text(TextConstants.filtersTitle), findsOneWidget);
+    expect(find.text(TextConstants.sortByTitle), findsOneWidget);
+    expect(find.text(TextConstants.sortRecommended), findsOneWidget);
+    expect(find.text(TextConstants.ratingsTitle), findsOneWidget);
+    expect(find.text(TextConstants.rating45Plus), findsOneWidget);
+    expect(find.text(TextConstants.clearButton), findsOneWidget);
+    expect(find.text(TextConstants.applyButton), findsOneWidget);
+
+    // Tap Apply
+    await tester.tap(find.text(TextConstants.applyButton));
+    await tester.pumpAndSettle();
+
+    // Verify Sheet closed
+    expect(find.text(TextConstants.filtersTitle), findsNothing);
+  });
+
+  testWidgets('SelectBranchScreen renders branches and navigates on continue',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: SelectBranchScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // Verify title and subtitle
+    expect(find.text(TextConstants.selectBranchTitle), findsOneWidget);
+    expect(find.text(TextConstants.selectBranchSubtitle), findsOneWidget);
+
+    // Verify branches
+    expect(find.text(TextConstants.branchMainTitle), findsOneWidget);
+    expect(find.text(TextConstants.branchCityCenterTitle), findsOneWidget);
+    expect(find.text(TextConstants.branchPremiumTitle), findsOneWidget);
+
+    // Tap City Center Branch
+    await tester.tap(find.text(TextConstants.branchCityCenterTitle));
+    await tester.pump();
+
+    // Tap Continue
+    await tester.tap(find.text(TextConstants.continueButton));
+    await tester.pumpAndSettle();
+
+    // Verify navigated to SelectServicesScreen
+    expect(find.text(TextConstants.selectServicesTitle), findsOneWidget);
+  });
+
+  testWidgets('YourTurnScreen displays celebration, token badge and okay button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: YourTurnScreen(tokenNumber: 'A-024'),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.yourTurnTitle), findsOneWidget);
+    expect(find.text(TextConstants.yourTurnSubtitle), findsOneWidget);
+    expect(find.text('A-024'), findsOneWidget);
+    expect(find.text(TextConstants.okayButton), findsOneWidget);
+  });
+
+  testWidgets('CancellationSuccessfulScreen renders confirmation and okay button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: CancellationSuccessfulScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.cancellationSuccessfulTitle), findsOneWidget);
+    expect(find.text(TextConstants.cancellationSuccessfulSubtitle), findsOneWidget);
+    expect(find.text(TextConstants.okayButton), findsOneWidget);
+  });
+
+  testWidgets('QueueFullScreen displays warning and go back button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: QueueFullScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.queueFullTitle), findsOneWidget);
+    expect(find.text(TextConstants.queueFullSubtitle), findsOneWidget);
+    expect(find.text(TextConstants.goBackButton), findsOneWidget);
+  });
+
+  testWidgets('FavoritesScreen displays tabs and businesses',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: FavoritesScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.favoritesTitle), findsOneWidget);
+    expect(find.text(TextConstants.tabBusinesses), findsOneWidget);
+    expect(find.text(TextConstants.tabFavoritesServices), findsOneWidget);
+    expect(find.text(TextConstants.sampleBusinessName), findsOneWidget);
+    expect(find.text(TextConstants.sampleSalonName), findsOneWidget);
+  });
+
+  testWidgets('NoInternetScreen renders offline icon and try again button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: NoInternetScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.noInternetTitle), findsOneWidget);
+    expect(find.text(TextConstants.noInternetSubtitle), findsOneWidget);
+    expect(find.text(TextConstants.tryAgainButton), findsOneWidget);
+  });
+
+  testWidgets('EditProfileScreen renders editable fields and save button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: EditProfileScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.editProfileTitle), findsOneWidget);
+    expect(find.text(TextConstants.changePhoto), findsOneWidget);
+    expect(find.text(TextConstants.sampleUserName), findsOneWidget);
+    expect(find.text(TextConstants.sampleUserEmail), findsOneWidget);
+    expect(find.text(TextConstants.saveChangesButton), findsOneWidget);
+  });
+
+  testWidgets('SettingsScreen renders configuration tiles and logout button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: SettingsScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.settingsTitle), findsOneWidget);
+    expect(find.text(TextConstants.settingAppearance), findsOneWidget);
+    expect(find.text(TextConstants.settingLocation), findsOneWidget);
+    expect(find.text(TextConstants.settingNotifications), findsOneWidget);
+    expect(find.text(TextConstants.settingPrivacy), findsOneWidget);
+    expect(find.text(TextConstants.settingHelpSupport), findsOneWidget);
+    expect(find.text(TextConstants.settingAboutFlowguard), findsOneWidget);
+    expect(find.text(TextConstants.logOutButton), findsOneWidget);
   });
 }

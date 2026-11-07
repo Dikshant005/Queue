@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/text_constants.dart';
+import '../../settings_screen/settings_screen.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
@@ -23,14 +24,11 @@ class ProfileHeader extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Settings coming soon!'),
-                  behavior: SnackBarBehavior.floating,
-                  duration: Duration(seconds: 1),
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const SettingsScreen(),
                 ),
               );
-              // TODO: Navigate to Settings & Preferences Screen
             },
             icon: const Icon(
               Icons.settings_outlined,

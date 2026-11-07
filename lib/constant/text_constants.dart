@@ -126,6 +126,39 @@ class TextConstants {
   static const String joinQueueButton = 'Join Queue';
   static const String bookAppointmentButton = 'Book Appointment';
 
+  // Select Services Screen
+  static const String selectServicesTitle = 'Select Services';
+  static const String selectServicesSubtitle = 'Choose the services you need';
+  static const String serviceEyeCheckup = 'Eye Checkup';
+  static const String serviceBloodTest = 'Blood Test';
+  static const String serviceOthers = 'Others';
+
+  // Book Appointment Screen
+  static const String bookAppointmentTitle = 'Book Appointment';
+  static const String availableSlotsTitle = 'Available Slots';
+  static const String continueButton = 'Continue';
+
+  // Appointment Booked Screen
+  static const String appointmentBookedTitle = 'Appointment Booked!';
+  static const String appointmentBookedSubtitle =
+      'Your appointment has been\nsuccessfully booked.';
+  static const String sampleBookedDate = 'Wed, 26 Oct • 10:00 AM';
+  static const String viewAppointmentButton = 'View Appointment';
+
+  // Explore Filter Bottom Sheet
+  static const String filtersTitle = 'Filters';
+  static const String sortByTitle = 'Sort By';
+  static const String sortRecommended = 'Recommended';
+  static const String sortDistance = 'Distance';
+  static const String sortRating = 'Rating';
+  static const String sortPriceLowHigh = 'Price Low to High';
+  static const String ratingsTitle = 'Ratings';
+  static const String rating45Plus = '4.5+';
+  static const String rating40Plus = '4.0+';
+  static const String rating35Plus = '3.5+';
+  static const String clearButton = 'Clear';
+  static const String applyButton = 'Apply';
+
   // Queue Tracker Screen
   static const String yourToken = 'Your Token';
   static const String waitingInLine = 'Waiting in Line';
@@ -207,4 +240,68 @@ class TextConstants {
   static const String navExplore = 'Explore';
   static const String navActivity = 'My Activity';
   static const String navProfile = 'Profile';
+
+  // Select Branch Screen
+  static const String selectBranchTitle = 'Select Branch';
+  static const String selectBranchSubtitle = 'Choose a branch to continue';
+  static const String branchMainTitle = 'Main Branch';
+  static const String branchMainLocation = 'Sector 14, Saharanpur';
+  static const String branchCityCenterTitle = 'City Center Branch';
+  static const String branchCityCenterLocation = 'Civil Lines, Saharanpur';
+  static const String branchPremiumTitle = 'Premium Branch';
+  static const String branchPremiumLocation = 'Model Town, Saharanpur';
+  static const String branchHoursOpen = 'Open • Closes 9 PM';
+
+  // Your Turn Screen
+  static const String yourTurnTitle = 'Your Turn!';
+  static const String yourTurnSubtitle = 'Please proceed to the service counter.';
+  static const String tokenValueA024 = 'A-024';
+  static const String okayButton = 'Okay';
+
+  // Cancel Queue Modal & Successful
+  static const String cancelQueueTitle = 'Cancel Queue?';
+  static const String cancelQueueSubtitle =
+      'Are you sure you want to cancel\nyour queue?';
+  static const String keepQueueButton = 'Keep Queue';
+  static const String confirmCancelQueueButton = 'Cancel Queue';
+  static const String cancellationSuccessfulTitle = 'Cancellation Successful!';
+  static const String cancellationSuccessfulSubtitle =
+      'Your queue has been cancelled.';
+
+  // Queue Currently Full
+  static const String queueFullTitle = 'Queue Currently Full';
+  static const String queueFullSubtitle =
+      'All slots are taken. Please try again later.';
+  static const String goBackButton = 'Go Back';
+
+  // My Favorites Screen
+  static const String favoritesTitle = 'My Favorites';
+  static const String tabBusinesses = 'Businesses';
+  static const String tabFavoritesServices = 'Services';
+  static const String sampleSalonName = 'Glow Beauty Salon';
+  static const String sampleSalonSubtitle = '1.5 km • ★ 4.7';
+
+  // No Internet Connection
+  static const String noInternetTitle = 'No Internet Connection';
+  static const String noInternetSubtitle =
+      'Check your internet connection and try again.';
+  static const String tryAgainButton = 'Try Again';
+
+  // Edit Profile Screen
+  static const String editProfileTitle = 'Edit Profile';
+  static const String changePhoto = 'Change Photo';
+  static const String saveChangesButton = 'Save Changes';
+
+  // Settings Screen
+  static const String settingsTitle = 'Settings';
+  static const String settingAppearance = 'Appearance';
+  static const String settingAppearanceSub = 'Light / Dark Mode';
+  static const String settingLocation = 'Location';
+  static const String settingLocationSub = 'Saharanpur, UP';
+  static const String settingNotifications = 'Notifications';
+  static const String settingNotificationsSub = 'Manage Preferences';
+  static const String settingPrivacy = 'Privacy & Security';
+  static const String settingHelpSupport = 'Help & Support';
+  static const String settingAboutFlowguard = 'About FLOWGUARD';
+  static const String logOutButton = 'Log Out';
 }

@@ -3,6 +3,7 @@ import '../../../constant/color_constants.dart';
 import '../../../constant/dimen_constants.dart';
 import '../../../constant/text_constants.dart';
 import '../../queue_success_screen/queue_success_screen.dart';
+import '../../select_branch_screen/select_branch_screen.dart';
 
 class DetailBottomActions extends StatelessWidget {
   const DetailBottomActions({super.key});
@@ -76,12 +77,9 @@ class DetailBottomActions extends StatelessWidget {
                 height: DimenConstants.buttonHeight - 4,
                 child: OutlinedButton(
                   onPressed: () {
-                    // TODO: Open Appointment Booking calendar & time slot picker
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Opening appointment scheduler...'),
-                        backgroundColor: ColorConstants.primaryBlue,
-                        behavior: SnackBarBehavior.floating,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const SelectBranchScreen(),
                       ),
                     );
                   },

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/text_constants.dart';
 import '../providers/queue_tracker_provider.dart';
+import 'cancel_queue_dialog.dart';
 
 class QueueBottomActions extends ConsumerWidget {
   const QueueBottomActions({super.key});
@@ -80,38 +81,11 @@ class QueueBottomActions extends ConsumerWidget {
   }
 
   void _showLeaveQueueDialog(BuildContext context, WidgetRef ref) {
-    showDialog(
-      context: context,
-      builder: (dialogCtx) => AlertDialog(
-        title: const Text('Leave Queue?'),
-        content: const Text(
-          'Are you sure you want to give up your spot? You will lose token A-024.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogCtx).pop(),
-            child: const Text('Stay in Line'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(dialogCtx).pop();
-              ref.read(queueTrackerProvider.notifier).cancelToken();
-              Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('You have left the queue.'),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-              // TODO: Send leave queue API cancellation request
-            },
-            child: const Text(
-              'Leave',
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
-      ),
+    CancelQueueDialog.show(
+      context,
+      onConfirmCancel: () {
+        ref.read(queueTrackerProvider.notifier).cancelToken();
+      },
     );
   }
 }
