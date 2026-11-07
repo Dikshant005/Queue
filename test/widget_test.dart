@@ -19,6 +19,7 @@ import 'package:flowguard/presentation/home_screen/home_screen.dart';
 import 'package:flowguard/presentation/no_internet_screen/no_internet_screen.dart';
 import 'package:flowguard/presentation/onboarding_screens/onboarding_screen.dart';
 import 'package:flowguard/presentation/queue_full_screen/queue_full_screen.dart';
+import 'package:flowguard/presentation/queue_info_screen/queue_info_screen.dart';
 import 'package:flowguard/presentation/queue_tracker_screen/queue_tracker_screen.dart';
 import 'package:flowguard/presentation/select_branch_screen/select_branch_screen.dart';
 import 'package:flowguard/presentation/settings_screen/settings_screen.dart';
@@ -713,5 +714,23 @@ void main() {
     expect(find.text(TextConstants.settingHelpSupport), findsOneWidget);
     expect(find.text(TextConstants.settingAboutFlowguard), findsOneWidget);
     expect(find.text(TextConstants.logOutButton), findsOneWidget);
+  });
+
+  testWidgets('QueueInfoScreen renders queue info, token, wait time, and alert',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: QueueInfoScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.queueInfoTitle), findsOneWidget);
+    expect(find.text(TextConstants.tokenValueA024), findsOneWidget);
+    expect(find.text('~ 12 min'), findsOneWidget);
+    expect(find.text('3 People Ahead'), findsOneWidget);
+    expect(find.text(TextConstants.cancelQueueAction), findsOneWidget);
   });
 }

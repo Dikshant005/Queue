@@ -228,6 +228,13 @@ class TextConstants {
       'Book an appointment to get started.';
   static const String exploreClinicsButton = 'Explore Clinics';
 
+  // Queue Information Screen (Row 2, Col 4 Mockup)
+  static const String queueInfoTitle = 'Queue Information';
+  static const String currentQueueAt = 'Current Queue at';
+  static const String turnApproachingAlert =
+      'Your turn is approaching soon!\nPlease keep the app open.';
+  static const String cancelQueueAction = 'Cancel Queue';
+
   // Queue Joined Successfully Screen / Dialog
   static const String queueJoinedTitle = 'Queue Joined Successfully!';
   static const String queueJoinedSubtitle =
