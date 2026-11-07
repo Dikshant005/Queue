@@ -58,6 +58,34 @@ class TextConstants {
   static const String andConjunction = ' and ';
   static const String privacyPolicy = 'Privacy Policy';
 
+  // OTP Verification Screen
+  static const String verifyOtpTitle = 'Verify Your OTP';
+  static const String verifyOtpSubtitle =
+      'Enter the 6-digit code sent to\n+91 98765 43210';
+  static const String sampleOtpPhone = '+91 98765 43210';
+  static const String resendCodeIn = 'Resend Code in ';
+  static const String sampleTimerSeconds = '00:45';
+  static const String verifyButton = 'Verify';
+  static const String didntReceiveCode = "Didn't receive code? ";
+  static const String resendButton = 'Resend';
+
+  // Allow Location Access Screen
+  static const String allowLocationTitle = 'Allow Location Access';
+  static const String allowLocationSubtitle =
+      'We need your location to find\nnearby businesses and services.';
+  static const String allowLocationButton = 'Allow Location';
+  static const String notNowButton = 'Not Now';
+
+  // Select Location Screen
+  static const String searchLocationHint = 'Search location...';
+  static const String currentLocationTitle = 'Current Location';
+  static const String changeButton = 'Change';
+  static const String popularLocationsTitle = 'Popular Locations';
+  static const String sampleLocationDehradun = 'Dehradun, UK';
+  static const String sampleLocationDelhi = 'Delhi, DL';
+  static const String sampleLocationNoida = 'Noida, UP';
+  static const String selectLocationButton = 'Select Location';
+
   // Home Screen
   static const String defaultLocation = 'Saharanpur, UP';
   static const String greetingEvening = 'Good evening 👋';

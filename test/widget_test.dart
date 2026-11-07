@@ -6,6 +6,9 @@ import 'package:flowguard/presentation/notifications_screen/notifications_screen
 import 'package:flowguard/presentation/profile_screen/profile_screen.dart';
 import 'package:flowguard/presentation/queue_success_screen/queue_success_screen.dart';
 import 'package:flowguard/presentation/auth_screens/auth_screen.dart';
+import 'package:flowguard/presentation/auth_screens/otp_verification_screen/otp_verification_screen.dart';
+import 'package:flowguard/presentation/location_permission_screen/location_permission_screen.dart';
+import 'package:flowguard/presentation/select_location_screen/select_location_screen.dart';
 import 'package:flowguard/presentation/business_detail_screen/business_detail_screen.dart';
 import 'package:flowguard/presentation/explore_screen/explore_screen.dart';
 import 'package:flowguard/presentation/home_screen/home_screen.dart';
@@ -383,5 +386,100 @@ void main() {
     await tester.tap(find.text(TextConstants.trackQueueButton));
     await tester.pumpAndSettle();
     expect(find.text(TextConstants.waitingInLine), findsOneWidget);
+  });
+
+  testWidgets(
+      'OtpVerificationScreen renders illustration, boxes, timer, and navigates to LocationPermissionScreen',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: OtpVerificationScreen(phoneNumber: '+91 98765 43210'),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // 1. Title and subtitle
+    expect(find.text(TextConstants.verifyOtpTitle), findsOneWidget);
+    expect(find.textContaining('+91 98765 43210'), findsOneWidget);
+
+    // 2. 6 Digit TextFields
+    expect(find.byType(TextField), findsNWidgets(6));
+
+    // 3. Resend timer & actions
+    expect(find.text(TextConstants.resendCodeIn), findsOneWidget);
+    expect(find.text(TextConstants.verifyButton), findsOneWidget);
+    expect(find.text(TextConstants.didntReceiveCode), findsOneWidget);
+
+    // 4. Tap "Verify" navigates to LocationPermissionScreen
+    await tester.tap(find.text(TextConstants.verifyButton));
+    await tester.pumpAndSettle();
+    expect(find.text(TextConstants.allowLocationTitle), findsOneWidget);
+  });
+
+  testWidgets(
+      'LocationPermissionScreen renders map illustration, buttons, and navigates to HomeScreen',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: LocationPermissionScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // 1. Title and Subtitle
+    expect(find.text(TextConstants.allowLocationTitle), findsOneWidget);
+    expect(find.text(TextConstants.allowLocationSubtitle), findsOneWidget);
+
+    // 2. Action buttons
+    expect(find.text(TextConstants.allowLocationButton), findsOneWidget);
+    expect(find.text(TextConstants.notNowButton), findsOneWidget);
+
+    // 3. Tap "Allow Location" navigates to HomeScreen
+    await tester.tap(find.text(TextConstants.allowLocationButton));
+    await tester.pumpAndSettle();
+    expect(find.text(TextConstants.greetingEvening), findsOneWidget);
+  });
+
+  testWidgets(
+      'SelectLocationScreen renders branding, current location, popular list, and selects new city',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: SelectLocationScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // 1. FlowGuard Branding in AppBar
+    expect(find.text(TextConstants.appName), findsOneWidget);
+
+    // 2. Search bar
+    expect(find.text(TextConstants.searchLocationHint), findsOneWidget);
+
+    // 3. Current Location card
+    expect(find.text(TextConstants.currentLocationTitle), findsOneWidget);
+    expect(find.text(TextConstants.changeButton), findsOneWidget);
+
+    // 4. Popular Locations list
+    expect(find.text(TextConstants.popularLocationsTitle), findsOneWidget);
+    expect(find.text(TextConstants.sampleLocationDehradun), findsOneWidget);
+    expect(find.text(TextConstants.sampleLocationDelhi), findsOneWidget);
+    expect(find.text(TextConstants.sampleLocationNoida), findsOneWidget);
+
+    // 5. Select Location button
+    expect(find.text(TextConstants.selectLocationButton), findsOneWidget);
+
+    // 6. Tap "Delhi, DL" in popular locations list
+    await tester.tap(find.text(TextConstants.sampleLocationDelhi));
+    await tester.pump();
+
+    // Verify "Delhi, DL" is now reflected in the Current Location card
+    expect(find.text(TextConstants.sampleLocationDelhi), findsNWidgets(2));
   });
 }

@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constant/asset_constants.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/dimen_constants.dart';
-import '../../../constant/text_constants.dart';
 import '../../notifications_screen/notifications_screen.dart';
+import '../../select_location_screen/providers/location_provider.dart';
+import '../../select_location_screen/select_location_screen.dart';
 
-class HomeHeader extends StatelessWidget {
+class HomeHeader extends ConsumerWidget {
   const HomeHeader({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentLocation = ref.watch(locationProvider);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Left: FlowGuard mini ribbon logo + Location dropdown
         InkWell(
           onTap: () {
-            // TODO: Fetch user's current GPS location dynamically using Geolocator
-            // TODO: Open Location Picker / City Selector modal sheet
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const SelectLocationScreen(),
+              ),
+            );
           },
           borderRadius: BorderRadius.circular(DimenConstants.radiusSmall),
           child: Padding(
@@ -41,10 +48,10 @@ class HomeHeader extends StatelessWidget {
                   },
                 ),
                 const SizedBox(width: DimenConstants.spacingSmall),
-                // Hardcoded location as requested with TODO for Geolocator
-                const Text(
-                  TextConstants.defaultLocation,
-                  style: TextStyle(
+                // Current Selected Location
+                Text(
+                  currentLocation,
+                  style: const TextStyle(
                     fontSize: DimenConstants.fontSizeCardTitle,
                     fontWeight: FontWeight.w700,
                     color: ColorConstants.textHeadline,

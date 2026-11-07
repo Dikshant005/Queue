@@ -6,6 +6,7 @@ import '../../constant/color_constants.dart';
 import '../../constant/dimen_constants.dart';
 import '../../constant/text_constants.dart';
 import '../home_screen/home_screen.dart';
+import 'otp_verification_screen/otp_verification_screen.dart';
 import 'providers/auth_provider.dart';
 
 class AuthScreen extends ConsumerWidget {
@@ -143,17 +144,12 @@ class AuthScreen extends ConsumerWidget {
                     height: DimenConstants.buttonHeight,
                     child: ElevatedButton(
                       onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              isLogin
-                                  ? 'OTP sent for login!'
-                                  : 'OTP sent for registration!',
-                            ),
-                            backgroundColor: ColorConstants.primaryDark,
-                            behavior: SnackBarBehavior.floating,
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const OtpVerificationScreen(),
                           ),
                         );
+                        // TODO: Call backend Authentication API to send SMS OTP code
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorConstants.darkButtonBackground,
