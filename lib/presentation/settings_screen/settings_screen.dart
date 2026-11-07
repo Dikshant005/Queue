@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../constant/color_constants.dart';
 import '../../constant/text_constants.dart';
 import '../auth_screens/auth_screen.dart';
+import '../help_support_screen/help_support_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -73,7 +74,11 @@ class SettingsScreen extends StatelessWidget {
               icon: Icons.help_outline_rounded,
               title: TextConstants.settingHelpSupport,
               onTap: () {
-                _showInfoSnackBar(context, 'Help & Support');
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const HelpSupportScreen(),
+                  ),
+                );
               },
             ),
             _buildSettingTile(

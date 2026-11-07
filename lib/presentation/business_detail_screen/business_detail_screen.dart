@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constant/color_constants.dart';
 import '../../constant/dimen_constants.dart';
+import '../../constant/text_constants.dart';
+import '../rate_review_screen/rate_review_screen.dart';
 import 'providers/business_detail_provider.dart';
 import 'widgets/detail_bottom_actions.dart';
 import 'widgets/detail_header_image.dart';
@@ -78,18 +80,59 @@ class BusinessDetailScreen extends ConsumerWidget {
                     ),
 
                   if (currentTab.isReviews)
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24.0),
-                      child: Center(
-                        child: Text(
-                          'Customer reviews & ratings breakdown',
-                          style: TextStyle(
-                            fontSize: DimenConstants.fontSizeBody,
-                            color: ColorConstants.textBody,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: Column(
+                        children: [
+                          const Center(
+                            child: Text(
+                              'Customer reviews & ratings breakdown',
+                              style: TextStyle(
+                                fontSize: DimenConstants.fontSizeBody,
+                                color: ColorConstants.textBody,
+                              ),
+                            ),
                           ),
-                        ),
+                          const SizedBox(height: 16),
+                          Center(
+                            child: OutlinedButton.icon(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => RateReviewScreen(
+                                      clinicName: title ??
+                                          TextConstants.sampleBusinessName,
+                                      rating: rating ??
+                                          TextConstants.sampleBusinessRating,
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.rate_review_outlined,
+                                color: ColorConstants.primaryBlue,
+                                size: 18,
+                              ),
+                              label: const Text(
+                                'Write a Review',
+                                style: TextStyle(
+                                  color: ColorConstants.primaryBlue,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                  color: ColorConstants.primaryBlue,
+                                  width: 1.5,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      // TODO: Display customer reviews, ratings breakdown, and write review action
                     ),
 
                   const SizedBox(height: DimenConstants.spacingLarge),

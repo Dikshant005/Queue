@@ -311,4 +311,101 @@ class TextConstants {
   static const String settingHelpSupport = 'Help & Support';
   static const String settingAboutFlowguard = 'About FLOWGUARD';
   static const String logOutButton = 'Log Out';
+
+  // Appointment Details Screen
+  static const String appointmentDetailsTitle = 'Appointment Details';
+  static const String statusConfirmed = 'Confirmed';
+  static const String dentalConsultationTitle = 'Dental Consultation';
+  static const String appointmentDateSample = 'Wed, 26 Nov 2026';
+  static const String appointmentTimeSample = '10:00 AM – 10:15 AM';
+  static const String bookingDetailsTitle = 'Booking Details';
+  static const String bookingIdLabel = 'Booking ID';
+  static const String sampleBookingId = '#AP-2026-4821';
+  static const String bookedOnLabel = 'Booked On';
+  static const String sampleBookedOn = 'Mon, 24 Nov 2026 • 3:20 PM';
+  static const String arriveEarlyNotice =
+      'Please arrive 10 mins before your appointment.';
+  static const String rescheduleButton = 'Reschedule';
+  static const String cancelAppointmentButton = 'Cancel Appointment';
+
+  // Reschedule Appointment Screen
+  static const String rescheduleTitle = 'Reschedule Appointment';
+  static const String selectDateTitle = 'Select Date';
+  static const String confirmRescheduleButton = 'Confirm Reschedule';
+
+  // Cancel Appointment Screen
+  static const String cancelAppointmentTitle = 'Cancel Appointment';
+  static const String cancelConfirmationHeadline =
+      'Are you sure you want\nto cancel this appointment?';
+  static const String actionCannotBeUndone = 'This action cannot be undone.';
+  static const String cancellationReasonLabel =
+      'Reason for Cancellation (Optional)';
+  static const String selectReasonHint = 'Select reason';
+  static const String tellUsMoreHint = 'Tell us more (optional)...';
+
+  // Appointment Cancelled Screen
+  static const String appointmentCancelledTitle = 'Appointment Cancelled!';
+  static const String appointmentCancelledSubtitle =
+      'Your appointment has been\nsuccessfully cancelled.';
+  static const String viewAppointmentsLink = 'View Appointments';
+
+  // Rate & Review Screen
+  static const String rateReviewTitle = 'Rate & Review';
+  static const String yourRatingTitle = 'Your Rating';
+  static const String ratingScoreSample = '4 out of 5';
+  static const String yourReviewOptional = 'Your Review (Optional)';
+  static const String shareExperienceHint = 'Share your experience...';
+  static const String whatDidYouLike = 'What did you like?';
+  static const String chipCleanliness = 'Cleanliness';
+  static const String chipStaffBehavior = 'Staff Behavior';
+  static const String chipServiceQuality = 'Service Quality';
+  static const String chipShortWaitTime = 'Short Wait Time';
+  static const String submitReviewButton = 'Submit Review';
+
+  // Help & Support Screen
+  static const String helpSupportTitle = 'Help & Support';
+  static const String howCanWeHelp = 'How can we help you?';
+  static const String howCanWeHelpSub =
+      'Find answers or get in touch with our team';
+  static const String faqTitle = 'FAQs';
+  static const String faqSubtitle = 'Common questions & answers';
+  static const String contactSupportTitle = 'Contact Support';
+  static const String contactSupportSubtitle = 'Chat with us or raise a query';
+  static const String reportProblemTitle = 'Report a Problem';
+  static const String reportProblemSubtitle = 'Tell us about any issue';
+  static const String privacyPolicyTitle = 'Privacy Policy';
+  static const String privacyPolicySubtitle = 'Learn how we protect your data';
+  static const String createSupportTicketButton = 'Create Support Ticket';
+
+  // Create Support Ticket Screen
+  static const String createSupportTicketTitle = 'Create Support Ticket';
+  static const String issueCategoryLabel = 'Issue Category';
+  static const String selectCategoryHint = 'Select Category';
+  static const String priorityLabel = 'Priority';
+  static const String priorityLow = 'Low';
+  static const String priorityMedium = 'Medium';
+  static const String priorityHigh = 'High';
+  static const String descriptionLabel = 'Description';
+  static const String describeIssueHint = 'Describe your issue in detail...';
+  static const String attachFilesOptional = 'Attach Files (Optional)';
+  static const String tapToUpload = 'Tap to upload\n(Max 5MB)';
+  static const String submitTicketButton = 'Submit Ticket';
+
+  // Ticket Details Screen
+  static const String ticketDetailsTitle = 'Ticket Details';
+  static const String sampleTicketId = '#SUP-2026-1034';
+  static const String statusInProgress = 'In Progress';
+  static const String ticketCreatedDate =
+      'Created on: Mon, 24 Nov • 4:15 PM';
+  static const String issueTitle = 'Issue';
+  static const String sampleIssueDescription =
+      'Unable to join queue at Northside Family Clinic';
+  static const String sampleChatUser = 'You • Mon, 24 Nov • 4:15 PM';
+  static const String sampleUserMessage =
+      'I\'m getting an error while joining the queue.';
+  static const String sampleChatAgent =
+      'Support Team • Mon, 24 Nov • 4:20 PM';
+  static const String sampleAgentMessage =
+      'We\'re checking the issue and will get back to you shortly.';
+  static const String addMessageHint = 'Add a message...';
 }

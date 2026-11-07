@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constant/color_constants.dart';
 import '../../constant/text_constants.dart';
 import '../favorites_screen/favorites_screen.dart';
+import '../help_support_screen/help_support_screen.dart';
 import '../home_screen/providers/home_nav_provider.dart';
 import '../notifications_screen/notifications_screen.dart';
 import 'widgets/profile_header.dart';
@@ -99,8 +100,11 @@ class ProfileScreen extends ConsumerWidget {
                 icon: Icons.help_outline_rounded,
                 title: TextConstants.menuHelpSupport,
                 onTap: () {
-                  _showFeatureToast(context, TextConstants.menuHelpSupport);
-                  // TODO: Open Help Center & Live Chat Support
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const HelpSupportScreen(),
+                    ),
+                  );
                 },
               ),
               ProfileMenuItem(

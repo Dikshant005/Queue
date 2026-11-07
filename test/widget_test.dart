@@ -2,8 +2,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flowguard/constant/text_constants.dart';
 import 'package:flowguard/presentation/activity_screen/activity_screen.dart';
+import 'package:flowguard/presentation/appointment_cancelled_screen/appointment_cancelled_screen.dart';
+import 'package:flowguard/presentation/appointment_details_screen/appointment_details_screen.dart';
+import 'package:flowguard/presentation/cancel_appointment_screen/cancel_appointment_screen.dart';
+import 'package:flowguard/presentation/create_support_ticket_screen/create_support_ticket_screen.dart';
+import 'package:flowguard/presentation/help_support_screen/help_support_screen.dart';
 import 'package:flowguard/presentation/notifications_screen/notifications_screen.dart';
 import 'package:flowguard/presentation/profile_screen/profile_screen.dart';
+import 'package:flowguard/presentation/rate_review_screen/rate_review_screen.dart';
+import 'package:flowguard/presentation/reschedule_appointment_screen/reschedule_appointment_screen.dart';
+import 'package:flowguard/presentation/ticket_details_screen/ticket_details_screen.dart';
 import 'package:flowguard/presentation/queue_success_screen/queue_success_screen.dart';
 import 'package:flowguard/presentation/auth_screens/auth_screen.dart';
 import 'package:flowguard/presentation/auth_screens/otp_verification_screen/otp_verification_screen.dart';
@@ -732,5 +740,157 @@ void main() {
     expect(find.text('~ 12 min'), findsOneWidget);
     expect(find.text('3 People Ahead'), findsOneWidget);
     expect(find.text(TextConstants.cancelQueueAction), findsOneWidget);
+  });
+
+  testWidgets('AppointmentDetailsScreen renders confirmed hero card, info and action buttons',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: AppointmentDetailsScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.appointmentDetailsTitle), findsOneWidget);
+    expect(find.text(TextConstants.statusConfirmed), findsOneWidget);
+    expect(find.text(TextConstants.dentalConsultationTitle), findsOneWidget);
+    expect(find.text(TextConstants.appointmentDateSample), findsOneWidget);
+    expect(find.text(TextConstants.appointmentTimeSample), findsOneWidget);
+    expect(find.text(TextConstants.sampleBookingId), findsOneWidget);
+    expect(find.text(TextConstants.rescheduleButton), findsOneWidget);
+    expect(find.text(TextConstants.cancelAppointmentButton), findsOneWidget);
+  });
+
+  testWidgets('RescheduleAppointmentScreen renders dates, slots, and confirm action',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: RescheduleAppointmentScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.rescheduleTitle), findsOneWidget);
+    expect(find.text(TextConstants.selectDateTitle), findsOneWidget);
+    expect(find.text('Wed'), findsOneWidget);
+    expect(find.text(TextConstants.availableSlotsTitle), findsOneWidget);
+    expect(find.text(TextConstants.confirmRescheduleButton), findsOneWidget);
+  });
+
+  testWidgets('CancelAppointmentScreen renders confirmation headline and inputs',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: CancelAppointmentScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.cancelConfirmationHeadline), findsOneWidget);
+    expect(find.text(TextConstants.cancellationReasonLabel), findsOneWidget);
+    expect(find.text(TextConstants.goBackButton), findsOneWidget);
+    expect(find.text(TextConstants.cancelAppointmentButton), findsNWidgets(2));
+  });
+
+  testWidgets('AppointmentCancelledScreen renders success badge, preview, and done button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: AppointmentCancelledScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.appointmentCancelledTitle), findsOneWidget);
+    expect(find.text(TextConstants.appointmentCancelledSubtitle), findsOneWidget);
+    expect(find.text(TextConstants.dentalConsultationTitle), findsOneWidget);
+    expect(find.text(TextConstants.doneButton), findsOneWidget);
+    expect(find.text(TextConstants.viewAppointmentsLink), findsOneWidget);
+  });
+
+  testWidgets('RateReviewScreen renders star rating, feedback input, and tags',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: RateReviewScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.rateReviewTitle), findsOneWidget);
+    expect(find.text(TextConstants.yourRatingTitle), findsOneWidget);
+    expect(find.text('4 out of 5'), findsOneWidget);
+    expect(find.text(TextConstants.yourReviewOptional), findsOneWidget);
+    expect(find.text(TextConstants.whatDidYouLike), findsOneWidget);
+    expect(find.text(TextConstants.chipCleanliness), findsOneWidget);
+    expect(find.text(TextConstants.submitReviewButton), findsOneWidget);
+  });
+
+  testWidgets('HelpSupportScreen renders options and ticket creation button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: HelpSupportScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.helpSupportTitle), findsOneWidget);
+    expect(find.text(TextConstants.howCanWeHelp), findsOneWidget);
+    expect(find.text(TextConstants.faqTitle), findsOneWidget);
+    expect(find.text(TextConstants.contactSupportTitle), findsOneWidget);
+    expect(find.text(TextConstants.reportProblemTitle), findsOneWidget);
+    expect(find.text(TextConstants.createSupportTicketButton), findsOneWidget);
+  });
+
+  testWidgets('CreateSupportTicketScreen renders category, priority, and submit button',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: CreateSupportTicketScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.createSupportTicketTitle), findsOneWidget);
+    expect(find.text(TextConstants.issueCategoryLabel), findsOneWidget);
+    expect(find.text(TextConstants.priorityLabel), findsOneWidget);
+    expect(find.text(TextConstants.descriptionLabel), findsOneWidget);
+    expect(find.text(TextConstants.attachFilesOptional), findsOneWidget);
+    expect(find.text(TextConstants.submitTicketButton), findsOneWidget);
+  });
+
+  testWidgets('TicketDetailsScreen renders ticket summary, chat messages, and send bar',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: TicketDetailsScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text(TextConstants.ticketDetailsTitle), findsOneWidget);
+    expect(find.text(TextConstants.sampleTicketId), findsOneWidget);
+    expect(find.text(TextConstants.statusInProgress), findsOneWidget);
+    expect(find.text(TextConstants.issueTitle), findsOneWidget);
+    expect(find.text(TextConstants.sampleUserMessage), findsOneWidget);
+    expect(find.text(TextConstants.sampleAgentMessage), findsOneWidget);
+    expect(find.text(TextConstants.addMessageHint), findsOneWidget);
   });
 }

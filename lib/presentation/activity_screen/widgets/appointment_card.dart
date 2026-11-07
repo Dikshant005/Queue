@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../constant/color_constants.dart';
 import '../../../constant/text_constants.dart';
+import '../../appointment_details_screen/appointment_details_screen.dart';
 import '../providers/activity_provider.dart';
 
 class AppointmentCard extends StatelessWidget {
@@ -122,16 +123,15 @@ class AppointmentCard extends StatelessWidget {
           Center(
             child: InkWell(
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Opening details for ${appointment.title}...',
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AppointmentDetailsScreen(
+                      serviceTitle: appointment.title,
+                      clinicName: appointment.clinicName,
+                      dateString: appointment.dateTime,
                     ),
-                    behavior: SnackBarBehavior.floating,
-                    duration: const Duration(seconds: 1),
                   ),
                 );
-                // TODO: Open Appointment Details modal & reschedule bottom sheet
               },
               borderRadius: BorderRadius.circular(20),
               child: Container(
