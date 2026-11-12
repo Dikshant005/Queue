@@ -30,8 +30,19 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
-/coverage/
+build/
+coverage/
+
+# Backend (Node.js / TypeScript / Prisma)
+backend/node_modules/
+backend/dist/
+backend/.env
+backend/prisma/*.db
+backend/generated/
+backend/.agents/
+backend/.claude/
+backend/.windsurf/
+backend/skills-lock.json
 
 # Symbolication related
 app.*.symbols
